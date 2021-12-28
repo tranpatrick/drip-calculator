@@ -1,13 +1,10 @@
-DAILY_ROI = 0.01
-HYDRATE_TAX = 0.05
-
 function compute(){
     let deposit = parseFloat(document.getElementById('deposit').value) || 0
     let hydratePeriod = parseFloat(document.getElementById('hydrate-period').value)
     let drip_price = parseFloat(document.getElementById('drip-price').value)
 
     $.ajax({
-        url: 'http://localhost:8080/compute',
+        url: 'https://drip-calculator.herokuapp.com/compute',
         type: 'get',
         data: {
             deposit: deposit,

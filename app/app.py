@@ -1,9 +1,10 @@
 import json
 import logging
+import os
 import sys
 
 from environs import Env
-from flask import Flask
+from flask import Flask, render_template, send_from_directory
 from flask import request, make_response
 from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
@@ -21,7 +22,7 @@ env.read_env()
 DEFAULT_HYDRATE_TAX_RATE = 0.05
 DEFAULT_DAILY_ROI = 0.01
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 
 def parameter_validation(deposit: float, hydrate_period: int):
@@ -127,7 +128,21 @@ def compute():
 
     response = make_response(res)
     response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
+    response.headers['Access-Control-Allow-Methods'] = 'GET'
     return response
 
 
-app.run(host="0.0.0.0", port=8080, debug=False)
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, '../static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=8080, debug=False)
