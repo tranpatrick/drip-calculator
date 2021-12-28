@@ -1,0 +1,62 @@
+<header>DRIP BENEFITS CALCULATOR</header>
+<link rel="stylesheet" href="../static/css/bootstrap.css">
+<link rel="stylesheet" href="../static/css/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../static/js/main.js"></script>
+<script src="../static/js/bootstrap.js"></script>
+
+<div class="container">
+
+    <div class="col-md-12">
+        <p class="tool-description">
+            This tool computes the cumulative value of your wallet in DRIP and USD over a year depending on<br/>
+            the DRIP token price, the initial deposit and the hydrate period in days.<br/>
+            It also gives you the details of the taxes payed and interests earned.
+        </p>
+    </div>
+
+    <form id="form">
+        <div class="parameter-field">
+            <input id="drip-price" type="number" placeholder="DRIP PRICE (USD)" min="0" max="100000">
+            <div class="tooltip-input">
+                <p class="tooltip-mark">?</p>
+                <span class="tooltiptext">Leave empty for auto price</span>
+            </div>
+        </div>
+
+        <div class="parameter-field">
+            <input id="deposit" type="number" placeholder="DRIP DEPOSIT" min="0" max="1000000000">
+            <div class="tooltip-input">
+                <p class="tooltip-mark">?</p>
+                <span class="tooltiptext">>= 0 and <= 1 billion</span>
+            </div>
+        </div>
+
+        <div class="parameter-field">
+            <input id="hydrate-period" type="number" placeholder="HYDRATE PERIOD (DAYS)" min="0" max="365">
+            <div class="tooltip-input">
+                <p class="tooltip-mark">?</p>
+                <span class="tooltiptext">>= 0 and <= 365</span>
+            </div>
+        </div>
+
+        <button id="submit" type="button" onClick="compute()">GO</button>
+
+    </form>
+
+    <div id="dataTableDiv" class="table-responsive">
+        <table id="dataTable" class="dataTable"></table>
+    </div>
+
+    <div id="dataTableUsdDiv" class="table-responsive">
+        <table id="dataTableUsd" class="dataTable"></table>
+    </div>
+
+    <div id="donation" class="col-md-12">
+        Developed by pat on the <a href="https://t.me/DRIPtoken_Chat">Drip TG</a>.<br/>
+        If this tool was helpful to you, show some love 0x1099dEcf499b090F054DE42316BFDa7C7D252996.
+    </div>
+
+</div>
+
+

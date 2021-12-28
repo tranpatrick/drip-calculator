@@ -1,0 +1,245 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400);
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #e3e3e3;
+    font-size: 0.875em;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: #e3e3e3;
+}
+
+input::-moz-placeholder {
+    color: #e3e3e3;
+    font-size: 0.875em;
+}
+
+input:focus::-moz-placeholder {
+    color: #bbb5af;
+}
+
+input::placeholder {
+    color: #e3e3e3;
+    font-size: 0.875em;
+}
+
+input:focus::placeholder {
+    color: #e3e3e3;
+}
+
+input::-ms-placeholder {
+    color: #aca49c;
+    font-size: 0.875em;
+}
+
+input:focus::-ms-placeholder {
+    color: #bbb5af;
+}
+
+/* on hover placeholder */
+
+input:hover::-webkit-input-placeholder {
+    color: #ffffff;
+    font-size: 0.875em;
+}
+
+input:hover:focus::-webkit-input-placeholder {
+    color: #ffffff;
+}
+
+input:hover::-moz-placeholder {
+    color: #ffffff;
+    font-size: 0.875em;
+}
+
+input:hover:focus::-moz-placeholder {
+    color: #ffffff;
+}
+
+input:hover::placeholder {
+    color: #ffffff;
+    font-size: 0.875em;
+}
+
+input:hover:focus::placeholder {
+    color: #ffffff;
+}
+
+input:hover::placeholder {
+    color: #ffffff;
+    font-size: 0.875em;
+}
+
+input:hover:focus::-ms-placeholder {
+    color: #ffffff;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: #5990a9;
+    color: #e3e3e3;
+}
+
+header {
+    position: relative;
+    margin: 100px 0 25px 0;
+    font-size: 2.3em;
+    text-align: center;
+    letter-spacing: 7px;
+}
+
+#form {
+    position: relative;
+    width: 500px;
+    margin: 50px auto 100px auto;
+}
+
+input, #submit {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    width: 470px;
+    height: 50px;
+    padding: 0px 15px 0px 15px;
+
+    background: transparent;
+    outline: none;
+    color: #e3e3e3;
+
+    border: solid 1px #ccd2d7;
+    border-bottom: none;
+
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+}
+
+input:hover, #submit:hover {
+    background: #27608a;
+    color: #e3e3e3;
+}
+
+
+#submit {
+    width: 500px;
+
+    margin: 0px 0px 0px 0px;
+
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    color: #ccd2d7;
+
+    outline:none;
+    cursor: pointer;
+
+    border: solid 1px #ccd2d7;
+}
+
+#submit:hover {
+    color: #ffffff;
+}
+
+.parameter-field {
+    display: inline-flex;
+}
+
+
+/* Tooltip container */
+.tooltip-input {
+    position: relative;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+    width: 30px;
+    height: 50px;
+    padding: 0px 0px 0px 0px;
+
+    text-align: center;
+
+    background: transparent;
+    outline: none;
+    color: #e3e3e3;
+
+    border: solid 1px #ccd2d7;
+    border-bottom: none;
+    border-left: none;
+
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+}
+
+/* Tooltip text */
+.tooltip-mark {
+    text-align: center;
+    margin-top: 13px;
+}
+
+.tooltip-input .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #27608a;
+    color: #fff;
+    text-align: center;
+    padding: 10px 10px;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip-input .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip-input:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.dataTable {
+    position: relative;
+    width: 1250px;
+    margin: auto auto 50px auto;
+}
+
+th {
+    border: 1px solid #e3e3e3;
+    width: 10.6%;
+    height: 50px;
+    padding: 10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+td {
+    border: 1px solid #e3e3e3;
+    padding: 10px;
+    width: 6.6%;
+    text-align: center;
+}
+
+#donation{
+    margin-bottom: 100px;
+}
+
+.tool-description{
+    text-align: center;
+}
