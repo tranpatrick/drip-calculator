@@ -4,7 +4,7 @@ function compute(){
     let drip_price = parseFloat(document.getElementById('drip-price').value)
 
     $.ajax({
-        url: 'https://drip-calculator.herokuapp.com/compute',
+        url: 'http://www.drip-calculator.com/compute',
         type: 'get',
         data: {
             deposit: deposit,
