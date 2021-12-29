@@ -12,6 +12,8 @@ function compute(){
             drip_price: isNaN(drip_price) ? null : drip_price
         },
         success: function(res){
+            document.getElementById('drip-price').value = res.body.drip_price
+
             let tableDiv = document.getElementById('dataTableDiv')
 
             let oldTable = document.getElementById('dataTable')

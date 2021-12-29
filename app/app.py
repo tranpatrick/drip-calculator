@@ -98,7 +98,7 @@ def compute():
         'total': {0: accumulated_deposit}
     }
 
-    for i in range (1, 366):
+    for i in range(1, 366):
         daily_interest = accumulated_deposit * DEFAULT_DAILY_ROI
         accumulated_interest += daily_interest
         total_interest_earned += daily_interest
@@ -121,6 +121,7 @@ def compute():
     res = {
         "status": 200,
         "body": {
+            "drip_price": round(drip_price, 2),
             "data_overtime": data_overtime,
             "data_overtime_usd": convert_tab_in_usd(data_overtime, drip_price)
         }
