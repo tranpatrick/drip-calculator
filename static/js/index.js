@@ -12,8 +12,8 @@ function compute(){
     let dripPrice = parseFloat(document.getElementById('drip-price').value)
 
     $.ajax({
-//        url: 'http://www.drip-calculator.com/compute',
-        url: 'compute',
+       url: 'http://www.drip-calculator.com/compute',
+        // url: 'compute',
         type: 'get',
         data: {
             deposit: deposit,
