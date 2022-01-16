@@ -20,7 +20,9 @@ env = Env()
 env.read_env()
 
 DEFAULT_HYDRATE_TAX_RATE = 0.05
+DEFAULT_CLAIM_TAX_RATE = 0.05
 DEFAULT_DAILY_ROI = 0.01
+MAX_DEPOSIT_CAPACITY = 27397
 
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
@@ -28,8 +30,8 @@ app = Flask(__name__, template_folder='../templates', static_folder='../static')
 def parameter_validation(deposit: float, hydrate_period: int):
     try:
         assert type(deposit) is float, 'deposit parameter must be of type float'
-        assert deposit >= 0, 'deposit parameter must be a positive value'
-        assert deposit <= 1000000000, 'deposit parameter must inferior to a billion'
+        assert deposit >= 1, 'deposit parameter must be superior or equal to 1'
+        assert deposit <= 27397, 'deposit parameter must inferior to 27397'
         assert type(hydrate_period) is int, 'hydrate period parameter must be of type int'
         assert hydrate_period >= 0, 'hydrate period parameter must superior or equal to 0'
         assert hydrate_period <= 365, 'hydrate period parameter must be inferior or equal to a 365'
@@ -76,7 +78,7 @@ def convert_tab_in_usd(data_overtime: dict, drip_price: float) -> dict:
 
 @app.route('/compute', methods=['GET'])
 def compute():
-    deposit = request.args.get('deposit', default=0, type=float)
+    deposit = request.args.get('deposit', default=1, type=float)
     hydrate_period = request.args.get('hydrate_period', default=1, type=int)
     drip_price = request.args.get('drip_price', type=float)
     param_validation_res = parameter_validation(deposit, hydrate_period)
@@ -103,11 +105,18 @@ def compute():
         accumulated_interest += daily_interest
         total_interest_earned += daily_interest
 
-        if hydrate_period != 0 and i % hydrate_period == 0:
+        if hydrate_period != 0 and i % hydrate_period == 0 and accumulated_deposit < MAX_DEPOSIT_CAPACITY:
             compound_tax_amount = accumulated_interest * DEFAULT_HYDRATE_TAX_RATE
-            total_tax_payed += compound_tax_amount
-            accumulated_deposit += accumulated_interest - compound_tax_amount
-            accumulated_interest = 0
+            if accumulated_deposit + accumulated_interest - compound_tax_amount > MAX_DEPOSIT_CAPACITY:
+                diff = MAX_DEPOSIT_CAPACITY - accumulated_deposit
+                diff_taxed = diff + diff * DEFAULT_HYDRATE_TAX_RATE
+                accumulated_interest -= diff_taxed
+                accumulated_deposit += diff_taxed
+                total_tax_payed += diff * DEFAULT_HYDRATE_TAX_RATE
+            else:
+                accumulated_deposit += accumulated_interest - compound_tax_amount
+                accumulated_interest = 0
+                total_tax_payed += compound_tax_amount
 
         if i % 30 == 0:
             data_overtime['interest'][i] = round(total_interest_earned, 2)
@@ -146,4 +155,4 @@ def favicon():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    app.run(host="0.0.0.0", port=8080, debug=True)

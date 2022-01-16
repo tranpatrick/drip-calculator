@@ -1,17 +1,33 @@
 function compute(){
-    let deposit = parseFloat(document.getElementById('deposit').value) || 0
+    let deposit = parseFloat(document.getElementById('deposit').value)
+    if (isNaN(deposit)) {
+        deposit = 1
+        document.getElementById('deposit').value = 1
+    }
     let hydratePeriod = parseFloat(document.getElementById('hydrate-period').value)
-    let drip_price = parseFloat(document.getElementById('drip-price').value)
+    if (isNaN(hydratePeriod)) {
+        hydratePeriod = 1
+        document.getElementById('hydrate-period').value = 1
+    }
+    let dripPrice = parseFloat(document.getElementById('drip-price').value)
 
     $.ajax({
-        url: 'http://www.drip-calculator.com/compute',
+//        url: 'http://www.drip-calculator.com/compute',
+        url: 'compute',
         type: 'get',
         data: {
             deposit: deposit,
             hydrate_period: hydratePeriod,
-            drip_price: isNaN(drip_price) ? null : drip_price
+            drip_price: isNaN(dripPrice) ? null : dripPrice
         },
         success: function(res){
+            if (res.error != null) {
+                handle_error(res)
+                return
+            } else {
+                clean_error_msg()
+            }
+
             document.getElementById('drip-price').value = res.body.drip_price
 
             let tableDiv = document.getElementById('dataTableDiv')
@@ -27,6 +43,14 @@ function compute(){
             tableDiv.appendChild(newUsdTable)
         }
     });
+}
+
+function handle_error(response){
+    document.getElementById('form-error').innerHTML = response.message
+}
+
+function clean_error_msg(){
+    document.getElementById('form-error').innerHTML = null
 }
 
 function generateTable(tableId, dataOvertime, unit){
@@ -64,7 +88,7 @@ function generateTable(tableId, dataOvertime, unit){
 
     for (let k of Object.keys(dataOvertime['interest'])) {
         let tdElement = document.createElement('td');
-        tdElement.innerHTML = dataOvertime['interest'][k].toString();
+        tdElement.innerHTML = dataOvertime['interest'][k].toLocaleString('us-US');
         interestTr.appendChild(tdElement)
     }
 
@@ -78,7 +102,7 @@ function generateTable(tableId, dataOvertime, unit){
 
     for (let k of Object.keys(dataOvertime['tax'])) {
         let tdElement = document.createElement('td');
-        tdElement.innerHTML = dataOvertime['tax'][k].toString();
+        tdElement.innerHTML = dataOvertime['tax'][k].toLocaleString('us-US');
         taxTr.appendChild(tdElement)
     }
 
@@ -92,7 +116,7 @@ function generateTable(tableId, dataOvertime, unit){
 
     for (let k of Object.keys(dataOvertime['total'])) {
         let tdElement = document.createElement('td');
-        tdElement.innerHTML = dataOvertime['total'][k].toString();
+        tdElement.innerHTML = dataOvertime['total'][k].toLocaleString('us-US');
         totalTr.appendChild(tdElement)
     }
 
